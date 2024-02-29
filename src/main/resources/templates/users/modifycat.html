@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="inc/header.html :: headerFrag" />
+<body>
+<div th:replace="inc/header.html :: header ('admin')"/>
+<div class="row">
+    <div class="offset-1 col-10">
+        <h2>카테고리 수정</h2>
+        <h3>새로운 카테고리 등록</h3>
+        <form th:action="@{/addZzbs}" method="post">
+            <div class="form-group">
+                <label for="newNation">나라:</label>
+                <input type="text" class="form-control" id="newNation" name="newNation"/>
+            </div>
+            <div class="form-group">
+                <label for="newFood">음식:</label>
+                <input type="text" class="form-control" id="newFood" name="newFood"/>
+            </div>
+            <button type="submit" class="btn btn-primary" onclick="location.href='/users/modifycat'">등록</button>
+        </form>
+        <hr/>
+        <h3>카테고리 목록 수정</h3>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>나라</th>
+                <th>음식</th>
+                <th></th> <!-- 수정 버튼을 위한 빈 열 -->
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Zzbs 엔티티 리스트 순회 -->
+            <tr th:each="zzbs : ${zzbsList}">
+                <form th:action="@{/updateZzbs}" th:object="${zzbs}" method="post">
+                    <input type="hidden" th:value="*{bid}"/>
+                    <td><input type="text" th:value="${zzbs.nation}" /></td> <!-- 수정 -->
+                    <td><input type="text" th:value="${zzbs.food}" /></td> <!-- 수정 -->
+                    <td>
+                        <!-- 수정 버튼 -->
+                        <button type="submit" class="btn btn-primary">수정</button>
+                    </td>
+                </form>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

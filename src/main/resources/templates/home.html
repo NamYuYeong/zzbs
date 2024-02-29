@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!-- 헤더 -->
+<head th:replace="inc/header.html :: headerFrag"></head>
+<body>
+<div th:replace="inc/header.html :: header ('home')"></div>
+<div class="homeWrap">
+<h4 class="home-title"><img src="/images/star.png" alt="★">쩝쩝박사가 대신골라드릴게용 <img src="/images/star.png" alt="★"></h4>
+    <!--룰렛컨텐츠-->
+    <div class="rwrap">
+        <div class="rouletter-wrap">
+            <div id="app">
+                <div class="rouletter">
+                   <p>
+                       <img src="/images/cattalk.png" alt="돌린다냥">
+                   </p>
+                    <img src="/images/Cat.png" alt="cat">
+                    <div class="rouletter-bg">
+                        <div class="rouletter-wacu"></div>
+                    </div>
+                    <div class="rouletter-arrow"></div>
+                </div>
+            </div>
+        </div>
+        <!-- 룰렛 결과 표시 부분 -->
+        <div id="result">
+            <div id="resultText"></div>
+
+        </div>
+    </div>
+
+    <div class="btn-box">
+        <button class="rouletter-btn">start</button>
+        <button class="rouletter-re-btn">추천맛집</button>
+    </div>
+</div>
+
+<th:block th:replace="/inc/footer :: footerFrag"></th:block>
+<script src="/js/roullette.js"></script>
+</body>
+<!-- 푸터 -->
+</html>

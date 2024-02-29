@@ -1,0 +1,66 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '2.7.14'
+    id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+}
+
+group = 'kr.ezen'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    sourceCompatibility = '11'
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+//    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    compileOnly 'org.projectlombok:lombok'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    runtimeOnly 'com.mysql:mysql-connector-j'
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    // jsp엔진 역할
+    implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
+    // jsp개발 편하게 해주는 라이브러리
+    implementation 'javax.servlet:jstl'
+
+    // 유효성 체크
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+    // 모델 mapper
+    // https://mvnrepository.com/artifact/org.modelmapper/modelmapper
+    implementation group: 'org.modelmapper', name: 'modelmapper', version: '2.4.4'
+
+// Spring Security
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '2.7.5'
+
+    implementation group: 'commons-fileupload', name: 'commons-fileupload', version: '1.4'
+
+
+// Thymeleaf, Validation
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+
+    // jsoup으로 긁어오기
+    // https://mvnrepository.com/artifact/org.jsoup/jsoup
+    implementation group: 'org.jsoup', name: 'jsoup', version: '1.15.3'
+}
+
+
+tasks.named('test') {
+    useJUnitPlatform()
+}

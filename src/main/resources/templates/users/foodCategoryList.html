@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="inc/header2.html :: headerFrag" />
+<style>
+    .Edit-modal{
+        display: none;
+    }
+    .fid, .fnation, .fname {
+        pointer-events: none;
+    }
+    #modal {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 9999;
+        display: none;
+    }
+
+    .modal_overlay {
+        position: absolute;
+        background-color: rgba(0, 0, 0, 0.5);
+        width: 100%;
+        height: 100%;
+    }
+    .modal_content {
+        background-color: white;
+        padding: 50px 80px;
+        text-align: center;
+        position: relative;
+        border-radius: 10px;
+        width: 80%;
+        display: flex;
+        flex-direction: column;
+    }
+    .modal_content>div{
+        padding-top: 20px;
+    }
+
+</style>
+<body>
+<div th:replace="inc/header2.html :: header ('admin/foodCategoryList')"/>
+<div class="container">
+<div class="btn-box fCategoryBtn">
+    <button class="" onclick="location.href = '/admin/CategoryInsert'">음식카테고리추가</button>
+</div>
+    <div class="fCategoryList-wrap">
+        <div class="fCategoryList-box">
+            <div class="categoryTit">
+                <h4>음식 카테고리</h4>
+            </div>
+            <div class="fCategoryList-nav">
+            <form class="form-group" th:method="get"
+                  th:action="|@{/admin/foodCategoryList (keyword=${keyword})}|">
+                <div>
+                    <input type="text" name="keyword" th:value="${keyword}" placeholder="음식을 입력해주세요">
+                    <button class="fsearchBtn" type="submit">검색</button>
+                </div>
+            </form>
+            </div>
+        </div>
+        <br/><br/>
+
+        <table class="table table-hover text-center">
+            <thead style="background-color: #FFF5B7">
+            <tr>
+                <th style="width: 5%">#</th>
+                <th style="width: 15%">분류</th>
+                <th style="width: 15%">음식</th>
+                <th style="width: 50px;"> </th>
+                <th style="width: 50px;"> </th>
+            </tr>
+            </thead>
+            <tbody class="listArea">
+            <div class="listArea2">
+                <!--  <tr th:each="food: ${foods}">
+                      <td id="bid" class="fid" style="width: 5%" th:text="${food.bid}" />
+                      <td class="fnation" style="width: 15%" ><input id="foodNation" type="text" th:value="${food.nation}" readonly></td>
+                      <td class="fname" style="width: 15%" ><input id="foodName" type="text" th:value="${food.food} "readonly></td>
+                      <td style="width: 5%" class="bbb"><button class="modify-Btn">수정</button></td>
+                      <td style="width: 5%" class="ccc"><button type="button" id="delete-Btn" class="delete-Btn">삭제</button></td>
+                  </tr>-->
+                <tr th:each="food: ${foods}">
+                    <td id="bid" class="fid" style="width: 5%" th:text="${food.bid}" />
+                    <td id="foodNation" class="fnation" style="width: 5%" th:text="${food.nation}" />
+                    <td id="foodName" class="fname" style="width: 5%" th:text="${food.food}" />
+                    <td style="width: 5%" class="bbb"><button class="modify-Btn">수정</button></td>
+                    <td style="width: 5%" class="ccc"><button type="button" id="delete-Btn" class="delete-Btn">삭제</button></td>
+                </tr>
+            </div>
+            </tbody>
+        </table>
+
+    </div>
+    <ul id="paging-ul" class="pagination justify-content-center"></ul>
+</div>
+
+<!--수정 modal-->
+<div id="modal" class="Edit-modal modal">
+    <div class="modal_overlay"></div>
+    <div class="modal_content">
+        <h4>카테고리수정</h4>
+        <div>
+            <input type="text" id="fid" readonly/>
+            <input type="text" id="fNation"/>
+            <input type="text" id="fName"/>
+        </div>
+        <div class="btn-box">
+            <button class="modal_close_btn">close</button>
+            <button class="modal_close_modify" id="modify-Btn-process">수정하기</button>
+        </div>
+    </div>
+</div>
+
+
+
+<script th:inline="javascript">
+    window.onload = function () {
+        let nowPage = [[${foods.getNumber()}]] + 1;    // 현재 페이지
+        let totalPage = [[${foods.getTotalPages()}]];  // 전체 페이지 수
+
+        let firstPage;  // 화면에 출력될 첫 페이지
+        for (let i = nowPage; i >= 1; i--) {
+            if(i % 5 == 1) {
+                firstPage = i;
+                break;
+            }
+        }
+
+        let lastPage;   // 화면에 출력될 마지막 페이지
+        let nextButton; // 다음 버튼 출력 여부
+        if (firstPage + 4 >= totalPage) {
+            lastPage = totalPage;
+            nextButton = false;
+        } else {
+            lastPage = firstPage + 4;
+            nextButton = true;
+        }
+
+        // HTML 생성
+        let pageHtml = "";
+        pageHtml += "<li><a class='page-link' href='" + makeUrl(1) +  "'>&laquo;</a></li>";
+        if (firstPage != 1) {
+            pageHtml += "<li><a class='page-link' href='" + makeUrl(firstPage - 1) +  "'>&lsaquo;</a></li>";
+        }
+
+        for (let i = firstPage; i <= lastPage; i++) {
+            if (i == nowPage) {
+                pageHtml += "<li class='page-item active'><a class= 'page-link'>" + i + "</a></li>";
+            } else {
+                pageHtml += "<li class='page-item'><a class= 'page-link' href='" + makeUrl(i) + "'>" + i + "</a></li>";
+            }
+        }
+
+        if (nextButton) {
+            pageHtml += "<li><a class='page-link' href='" + makeUrl(lastPage + 1) +  "'>&rsaquo;</a></li>";
+        }
+        pageHtml += "<li><a class='page-link' href='" + makeUrl(totalPage) +  "'>&raquo;</a></li>";
+
+        $("#paging-ul").html(pageHtml);
+    }
+
+    function makeUrl(page) {
+        let url = "/admin/foodCategoryList?page=" + page;
+
+        // // 검색 했으면 다음 URL에도 추가
+        // let keyword = [[${keyword}]];
+        // url += "keyword=" + keyword;
+
+        return url;
+    }
+</script>
+<script src="/js/foodList.js"></script>
+</body>
+</html>

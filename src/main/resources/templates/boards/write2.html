@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="inc/header2.html :: headerFrag" />
+
+<link rel="stylesheet" href="/css/board.css">
+<body>
+<div th:replace="inc/header2.html :: header (${category})"/>
+
+
+
+<div class="boardDetail-wrap">
+
+
+    <div class="boardDetail-contents">
+        <div class="boardDetailTitle">
+            <h3>쩝쩝박사 리뷰일기 작성ing~★</h3>
+        </div>
+<!--        <h5> ☞ 지도에서 음식점 찾기</h5>-->
+    <div class="map_wrap">
+
+        <div id="map2" style="height:100%;position:relative;overflow:hidden;"></div>
+
+        <div id="menu_wrap" class="bg_white">
+            <div class="option">
+                <div>
+                    <form onsubmit="searchPlaces(); return false;">
+                        <h5>음식점 찾기</h5><input style="padding: 8px; margin:10px 0;  border: 1px solid #ccc; height: 40px; font-size: 20px;" type="text" value="맛집" id="keyword" size="10">
+                        <button style="width: 100%;" type="submit">검색하기</button>
+                    </form>
+                </div>
+            </div>
+            <hr>
+            <ul id="placesList"></ul>
+            <div id="pagination"></div>
+        </div>
+    </div>
+
+        <form class="form-group" th:object="${boardCreateRequest}" th:method="post"
+              th:action="|@{/boards/{category} (category = ${category})}|" enctype="multipart/form-data">
+            <div>
+                <label th:for="rtitle2">식당명 : </label>
+                <input type="text" name="rtitle" id="rtitle" th:value="${param.place_name}" placeholder="쩝쩝박사님 지도에서 식당찾기를 해주세용" readonly>
+            </div>
+            <br/>
+            <div>
+                <label th:for="title">제목 : </label>
+                <input type="text" placeholder="제목을 작성해주세요" th:field="*{title}">
+            </div>
+            <br/>
+
+            <div>
+                <label th:for="body">내용 : </label>
+                <textarea rows="10" style="width: 100%;" placeholder="리뷰할 내용을 작성해주세요~" th:field="*{body}"/>
+            </div>
+            <br/>
+            <div>
+                <label>별점을 입력해주세요</label>
+                <input type="hidden" id="rating" name="rating" value="0">
+                <span class="star" title="1">☆</span>
+                <span class="star" title="2">☆</span>
+                <span class="star" title="3">☆</span>
+                <span class="star" title="4">☆</span>
+                <span class="star" title="5">☆</span>
+            </div>
+            <br/>
+            <div>
+                <label th:for="uploadImage">이미지 첨부 : </label>
+                <input type="file" th:field="*{uploadImage}">
+            </div>
+
+            <div class="write-btn-box">
+                <div class="back_box write-btn">
+                    <button class="" onclick="history.back();">뒤로가기</button>
+                    <a href="/boards/free/">리뷰 메인</a>
+                </div>
+                <div>
+                    <button class="write-Ok" type="submit">등록</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    $(document).ready(function() {
+        $('.star').click(function() {
+            var rating = parseInt($(this).attr('title'));
+
+            // 클릭한 별과 그 이전 별까지 활성화
+            $('.star').each(function() {
+                var currentRating = parseInt($(this).attr('title'));
+                if (currentRating <= rating) {
+                    $(this).html('★');
+                } else {
+                    $(this).html('☆');
+                }
+            });
+
+            // 별점 값을 숨은 입력 필드에 설정
+            $('#rating').val(rating);
+        });
+    });
+</script>
+<script th:inline="javascript">
+    $("#uploadImage").on("change", (e) => {
+
+        let f = e.target.files[0];
+
+        // 확장자 체크 => 이미지 파일이 맞는지
+        let ext = f.name.substr(f.name.lastIndexOf('.')+1).toLowerCase();
+        const acceptType = ['gif','png','jpg','jpeg', 'bmp'];
+
+        if(acceptType.indexOf(ext) == -1) {
+            alert("이미지만 업로드 가능합니다.")
+            delete_image();
+            return;
+        }
+
+        //최대 용량 10MB 초과
+        if (f.size > 10 * 1024 * 1024) {
+            alert("업로드 이미지의 최대 크기는 10MB입니다.");
+            delete_image();
+            return;
+        }
+
+    });
+
+    function delete_image() {
+        let agent = navigator.userAgent.toLowerCase();
+
+        // 브라우저가 IE인 경우
+        if ( (navigator.appName == 'Netscape' && navigator.userAgent.search('Trident') != -1) || (agent.indexOf("msie") != -1) ){
+            $("#uploadImage").replaceWith( $("#uploadImage").clone(true) );
+        } else {
+            $("#uploadImage").val("");
+        }
+    }
+</script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=53e4981e6bc99b836ba4b8392ae6166c&libraries=services"></script>
+<script src="/js/map2.js"></script>
+<!-- 푸터 -->
+<th:block th:replace="/inc/footer :: footerFrag"></th:block>
+</body>
+</html>

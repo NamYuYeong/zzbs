@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="inc/header.html :: headerFrag" />
+<link rel="stylesheet" href="/css/board.css">
+<body>
+<div th:replace="inc/header.html :: header (${category})"/>
+<div class="list-wrap" style=" margin-bottom: 30px">
+   <!-- <div style="margin: 80px auto;">
+     <h4 style="text-align: center;"><img src="/images/pen.png" alt="★" width="20px"> 공지사항 <img src="/images/pen.png" alt="★" width="20px"></h4>
+    </div>-->
+
+
+
+</div>
+
+<div class="board_table">
+
+<!--            <div>-->
+<!--                <div style="border-bottom:1px solid #eaeaea">-->
+<!--                    <th style="padding: 15px 0; text-align:center;">공지사항</th>-->
+<!--                </div>-->
+<!--            </div>-->
+
+
+        <div class="">
+            <div style="margin: 80px auto;">
+                <h4 style="text-align: center;"><img src="/images/star.png" alt="★">전국 맛집 리뷰<img src="/images/star.png" alt="★"></h4>
+            </div>
+
+            <div class="cntBtn-box" style="">
+                <h5 style="width: 20%; text-align: left;">전체: [[${boards.getTotalElements()}]]개</h5>
+                <div style="width: 80%; text-align: right;">
+                    <button  sec:authorize="!hasAuthority('ADMIN')" class="post-btn" type="button"
+                             th:onclick="|location.href='@{/boards/{category}/write2 (category=${category})}'|">글 작성</button>
+                    <button  sec:authorize="hasAuthority('ADMIN')" class="post-btn" type="button"
+                             th:onclick="|location.href='@{/boards/{category}/write (category=${category})}'|">공지 작성</button>
+                </div>
+            </div>
+
+            <div class="reviewSearch">
+                <form class="form-group" style="height: 40px;" th:object="${boardSearchRequest}" th:method="get"
+                      th:action="|@{/boards/{category} (category=${category}, sortType=*{sortType}, searchType=*{searchType}, keyword=*{keyword})}|">
+                  <div class="listSbox">
+                    <select th:field="*{sortType}" style="height: 40px;">
+                        <option th:value="date">최신순</option>
+                        <option th:value="like">좋아요순</option>
+                        <option th:value="comment">댓글순</option>
+                    </select>
+                    <select th:field="*{searchType}" style="height: 40px;">
+                        <option th:value="rtitle">식당명</option>
+                        <option th:value="title">제목</option>
+                        <option th:value="nickname">작성자</option>
+                    </select>
+                  </div>
+                    <div class="searchIn">
+                        <input type="text" th:field="*{keyword}" placeholder="검색 키워드를 입력해주세요" style="height: 100%; width: 87.5%;">
+                        <button class="search-btn" type="submit">검색</button>
+                    </div>
+                </form>
+            </div>
+            <div class="notice_box">
+                <div th:each="notice: ${notices}"
+                     th:onclick="|location.href='@{/boards/{category}/{boardId} (category=${category}, boardId=${notice.id})}'|"
+                     class="notice-tr">
+                    <span style="width: 15%">※ 공지사항</span>
+                    <!-- <span style="width: 20%; padding:10px 0;" th:text="${notice.user.nickname}"/>-->
+                    <span th:text="${notice.title}"/>
+                    <!--                    <span style="width: 10%" th:text="${notice.likeCnt}"/>
+                                        <span style="width: 10%" th:text="${notice.commentCnt}"/>-->
+                    <span style="width: 15%" th:text="${#temporals.format(notice.createdAt, 'yy/MM/dd HH:mm')}"/>
+                </div>
+            </div>
+           <!-- <div class="board_box">
+                <div th:each="board: ${boards}"
+                    th:onclick="|location.href='@{/boards/{category}/{boardId} (category=${category}, boardId=${board.id})}'|">
+                    <div class="board_txt">
+                    <p style="text-align: center;" th:text="${#temporals.format(board.createdAt, 'yy/MM/dd HH:mm')}"/>
+                        <div><span>닉네임</span><p th:text="${board.user.nickname}"/></div>
+                        <div><span>음식점</span><p th:text="${board.rtitle}"/></div>
+                        <div><span>제목</span><p th:text="${board.title}"/></div>
+                        <div><span>좋아요</span><p th:text="${board.likeCnt}"/></div>
+                        <div><span>댓글</span><p th:text="${board.commentCnt}"/></div>
+                        <div><img style="width: 10%" th:src="@{/boards/images/} + ${board.getUploadImage().getSavedFilename()}"/></div>
+                    </div>
+                </div>
+            </div>-->
+            <div class="board_box">
+                <div th:each="board: ${boards}"
+                     th:onclick="|location.href='@{/boards/{category}/{boardId} (category=${category}, boardId=${board.id})}'|">
+                    <div><img style="width: 100%" th:src="@{/boards/images/} + ${board.getUploadImage().getSavedFilename()}"/></div>
+
+                    <div class="board_txt">
+                        <div>
+                            <p style="color: #fff;" th:text="${board.rtitle}"/>
+                            <span  style="color: #fff;">
+                                <img src="/images/star.png" style="width: 18px; height: 18px" alt="">
+                                <th:block th:text="${board.rating}"/>
+                            </span>
+                             <span class="board_cont" style="color: #fff;">
+                             <img src="/images/icon_heart.png" style="width: 18px; height: 18px" alt="♥">
+                                 <th:block  th:text="${board.likeCnt}"/>
+                             </span>
+
+                            <span class="board_cont" style="color: #fff;">
+                             <img src="/images/comment.png" style="width: 15px; height: 15px" alt="♥">
+                                 <th:block  th:text="${board.commentCnt}"/>
+                             </span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    <ul id="paging-ul" class="pagination justify-content-center"></ul>
+</div>
+
+
+<script src="/js/list.js"></script>
+<script th:inline="javascript">
+    window.onload = function () {
+        let nowPage = [[${boards.getNumber()}]] + 1;    // 현재 페이지
+        let totalPage = [[${boards.getTotalPages()}]];  // 전체 페이지 수
+
+        let firstPage;  // 화면에 출력될 첫 페이지
+        for (let i = nowPage ; i >= 1 ; i --) {
+            if(i % 5 == 1) {
+                firstPage = i;
+                break;
+            }
+        }
+
+        let lastPage;   // 화면에 출력될 마지막 페이지
+        let nextButton; // 다음 버튼 출력 여부
+        if (firstPage + 4 >= totalPage) {
+            lastPage = totalPage;
+            nextButton = false;
+        } else {
+            lastPage = firstPage + 4;
+            nextButton = true;
+        }
+
+        // HTML 생성
+        let pageHtml = "";
+        pageHtml += "<li><a class='page-link' href='" + makeUrl(1) +  "'>&laquo;</a></li>";
+        if (firstPage != 1) {
+            pageHtml += "<li><a class='page-link' href='" + makeUrl(firstPage - 1) +  "'>&lsaquo;</a></li>";
+        }
+
+        for (let i = firstPage; i <= lastPage; i++) {
+            if (i == nowPage) {
+                pageHtml += "<li class='page-item active'><a class= 'page-link'>" + i + "</a></li>";
+            } else {
+                pageHtml += "<li class='page-item'><a class= 'page-link' href='" + makeUrl(i) + "'>" + i + "</a></li>";
+            }
+        }
+
+        if (nextButton) {
+            pageHtml += "<li><a class='page-link' href='" + makeUrl(lastPage + 1) +  "'>&rsaquo;</a></li>";
+        }
+        pageHtml += "<li><a class='page-link' href='" + makeUrl(totalPage) +  "'>&raquo;</a></li>";
+
+        $("#paging-ul").html(pageHtml);
+    }
+
+    function makeUrl(page) {
+        let category = [[${category}]];
+        let url = "/boards/" + category + "?page=" + page;
+
+        // 검색 했으면 다음 URL에도 추가
+        let sortType = [[${boardSearchRequest.sortType}]];
+        let searchType = [[${boardSearchRequest.searchType}]];
+        let keyword = [[${boardSearchRequest.keyword}]];
+
+        if (sortType != null) {
+            url += "&sortType=" + sortType;
+        }
+        if (searchType != null) {
+            url += "&searchType=" + searchType + "&keyword=" + keyword;
+        }
+
+        return url;
+    }
+</script>
+<!-- 푸터 -->
+<th:block th:replace="/inc/footer :: footerFrag"></th:block>
+</body>
+</html>

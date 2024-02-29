@@ -1,0 +1,124 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="ko" xmlns:th="http://www.thymeleaf.org">-->
+<!--<th:block th:fragment="headerFrag">-->
+<!--    <head>-->
+<!--        <title>쩝쩝박사는 다알아</title>-->
+<!--        <meta charset="utf-8">-->
+<!--        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no,-->
+<!--  maximum-scale=1.0, minimum-scale=1.0">-->
+<!--        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />-->
+<!--        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>-->
+<!--        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>-->
+<!--        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">-->
+<!--        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">-->
+<!--        <link type="text/css" href="/css/common.css" rel="stylesheet">-->
+<!--        <link type="text/css" href="/css/main.css" rel="stylesheet">-->
+<!--        <link type="text/css" href="/css/ui.css" rel="stylesheet">-->
+<!--        <link type="text/css" href="/css/home.css" rel="stylesheet">-->
+<!--        <link type="text/css" href="/css/map.css" rel="stylesheet">-->
+<!--    </head>-->
+<!--    <body>-->
+
+<!--    <div class="top">-->
+<!--        <div class="logo">-->
+<!--            <h5><a href="/"><img src="../images/logo.png" alt="쩝쩝박사는 다알아"></a></h5>-->
+<!--        </div>-->
+<!--        <div class="search-box">-->
+<!--            <input type="text" placeholder="지역, 음식 또는 식당명 입력" >-->
+<!--            <button type="button" class="img-button"></button>-->
+<!--        </div>-->
+<!--        <div class="menu-top">-->
+<!--            <ul>-->
+<!--                <th:block th:if="${session.principal == null}">-->
+<!--                    <li class="nav-item">-->
+<!--                        <a class="" href="/auth/login">로그인</a>-->
+<!--                    </li>-->
+<!--                    <li class="nav-item">-->
+<!--                        <a class="" href="/auth/register">회원가입</a>-->
+<!--                    </li>-->
+<!--                </th:block>-->
+<!--                <th:block th:if="${session.principal != null}">-->
+<!--                    <li class="nav-item ms-auto">-->
+<!--                        <a class="" href="/auth/logout">로그아웃</a>-->
+<!--                    </li>-->
+<!--                </th:block>-->
+<!--            </ul>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <div class="wrap bgimg">-->
+<!--        <div class="wrap-inner">-->
+
+
+
+<!--            <nav class="nav">-->
+<!--                <div class="">-->
+<!--                    <ul class="">-->
+<!--                        <li class="nav-item">-->
+<!--                            <a class="nav-link" href="/">-->
+<!--                                <img src="../images/menu1.png" alt="메뉴정하기">-->
+<!--                                <span>메뉴정하기</span>-->
+<!--                            </a>-->
+<!--                        </li>-->
+<!--                        <li class="nav-item">-->
+<!--                            <a class="nav-link" href="/user/map">-->
+<!--                                <img src="../images/menu2.png" alt="맛집검색">-->
+<!--                                <span>맛집검색</span>-->
+<!--                            </a>-->
+<!--                        </li>-->
+<!--                        <li class="nav-item">-->
+<!--                            <a class="nav-link" href="/post/registerPost">-->
+<!--                                <img src="../images/menu3.png" alt="맛집리뷰">-->
+<!--                                <span>맛집리뷰</span>-->
+<!--                            </a>-->
+<!--                        </li>-->
+<!--                    </ul>-->
+<!--                </div>-->
+<!--            </nav>-->
+<!--        </div>-->
+
+<!--        <div class="content_slide">-->
+<!--            &lt;!&ndash;        <h1 class="slide_title">지금 내주변에는 어떤음식들이 있을까?</h1>&ndash;&gt;-->
+
+<!--            <div class="swiper mySwiper">-->
+<!--                <div class="swiper-wrapper">-->
+<!--                    <div class="swiper-slide"><img src="../images/01.png" alt=""></div>-->
+<!--                    <div class="swiper-slide"><img src="../images/02.png" alt=""></div>-->
+<!--                    <div class="swiper-slide"><img src="../images/03.png" alt=""></div>-->
+<!--                    <div class="swiper-slide"><img src="../images/04.png" alt=""></div>-->
+<!--                    <div class="swiper-slide"><img src="../images/05.png" alt=""></div>-->
+<!--                    <div class="swiper-slide"><img src="../images/01.png" alt=""></div>-->
+<!--                    <div class="swiper-slide"><img src="../images/02.png" alt=""></div>-->
+<!--                    <div class="swiper-slide"><img src="../images/03.png" alt=""></div>-->
+<!--                    <div class="swiper-slide"><img src="../images/04.png" alt=""></div>-->
+<!--                    <div class="swiper-slide"><img src="../images/05.png" alt=""></div>-->
+<!--                </div>-->
+<!--                <div class="swiper-button-next"></div>-->
+<!--                <div class="swiper-button-prev"></div>-->
+<!--                <div class="swiper-pagination"></div>-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        &lt;!&ndash; Swiper JS &ndash;&gt;-->
+<!--        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>-->
+<!--        <script>-->
+<!--            var swiper = new Swiper(".mySwiper", {-->
+<!--                slidesPerView: 5,-->
+<!--                spaceBetween: 30,-->
+
+<!--                loop: true,-->
+<!--                loopFillGroupWithBlank: true,-->
+<!--                pagination: {-->
+<!--                    el: ".swiper-pagination",-->
+<!--                    clickable: true,-->
+<!--                },-->
+<!--                autoplay: {-->
+<!--                    delay: 2500,-->
+<!--                    disableOnInteraction: false,-->
+<!--                },-->
+<!--                navigation: {-->
+<!--                    nextEl: ".swiper-button-next",-->
+<!--                    prevEl: ".swiper-button-prev",-->
+<!--                },-->
+<!--            });-->
+<!--        </script>-->
+<!--</th:block>-->

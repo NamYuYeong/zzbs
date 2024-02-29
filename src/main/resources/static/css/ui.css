@@ -1,0 +1,459 @@
+a:hover{
+    color:inherit;
+}
+body{
+    min-width: 1200px;
+
+
+}
+.bgimg{
+
+    background: url('../images/container_bg.png')no-repeat;
+    background-size: cover;
+    width: 100%;
+    /*height: 100vh;*/
+    background-attachment : fixed;
+
+}
+.wrap-inner{
+    padding: 0 40px;
+    display: flex;
+    justify-content: center;
+}
+/*header*/
+.top{
+    display: flex;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 9999;
+    background: #ffffff;
+    padding: 16px 40px;
+    justify-content: space-between;
+
+}
+.top .menu-top ul{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.menu-top ul li:nth-child(1){
+    padding-right: 10px;
+}
+
+.nav{
+    display: flex;
+    justify-content: center;
+    padding: 20px 0;
+}
+.nav>div>ul{
+    display: flex;
+}
+.nav>div>ul li a{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+.nav>ul li a span{
+    font-weight: 400;
+}
+.nav>ul li img{
+    width: 20px;
+    padding-bottom: 5px;
+}
+.nav>ul li+li{
+    padding-left: 8px;
+}
+.nav-item a> span{
+    padding-top: 8px;
+    font-size: 17px;
+    /*font-weight: bold;*/
+}
+.nav-item a:hover span{
+    text-decoration: underline;
+}
+/*footer*/
+/*silder*/
+.swiper {
+    width: 100%;
+    height: 100%;
+}
+
+.swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+
+}
+
+.swiper-slide img {
+    display: block;
+    width: 100%;
+    min-width: 350px;
+    max-width: 231px;
+    height: 100%;
+    max-height: 240px;
+    min-height: 240px;
+    border-radius: 40px;
+    object-fit: cover;
+    padding: 20px;
+}
+.content_slide{
+    padding:20px 40px;
+}
+
+/*search*/
+.search-box>div>form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.search-box>div>form>input{
+    min-width: 620px;
+    width: 100%;
+    height: 32px;
+    border-radius: 25px;
+    border: none;
+    background: #f1f1f1;
+    padding:0 20px;
+    box-sizing: border-box;
+    outline: none;
+
+}
+
+.search-box>div>form>.img-button{
+    margin-left: 10px;
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: url("../images/search_icon.png") no-repeat;
+}
+/*어드민*/
+.btn-box.fCategoryBtn{
+    justify-content: flex-end;
+}
+.fCategoryList-wrap .fCategoryList-nav, .adList-nav{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.fCategory-go{
+    /*border: none;*/
+    background-color: #ffffff;
+
+ }
+.fCategory-go:hover{
+    text-decoration: underline;
+}
+.fCategoryList-box, .adList-box{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+.fCategoryList-box .categoryTit, .adList-box .categoryTit{
+    width: 20%;
+}
+
+.fCategoryList-wrap .fCategoryList-nav form ,.adList-nav form{
+    width: 100%;
+    height: 40px;
+}
+.fCategoryList-wrap .fCategoryList-nav form div, .adList-nav form div{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+.fCategoryList-wrap .fCategoryList-nav form div>input, .adList-nav form div>input{
+    width:88%;
+}
+.fCategoryList-wrap .fCategoryList-nav form div>.fsearchBtn,.adList-nav form div>.adsearchBtn{
+    background-color: #2a2a2a;
+    padding: 10px;
+    color: #fff;
+}
+/*어드민 음식카테고리추가*/
+.categoryIn-wrap{
+    height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 60px 0;
+
+}
+.categoryIn-wrap .inc-title{
+    text-align: center;
+}
+.categoryIn-box label{
+    text-align: left;
+    padding-bottom: 8px;
+}
+.categoryIn-box input{
+    border-radius: 0.375rem;
+    width: 350px;
+    height: 40px;
+}
+
+
+/* 회원가입*/
+.Join-wrap{
+    height: 600px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 60px 0;
+
+}
+.Join-wrap .inc-title{
+    text-align: center;
+}
+.join-box label{
+    padding-bottom: 8px;
+}
+.join-box input{
+    border-radius: 0.375rem;
+    width: 350px;
+    height: 40px;
+}
+/*login css*/
+.login-wrap{
+    height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+}
+.inc-title{
+    padding-bottom: 20px;
+}
+.inc-title img{
+    padding-bottom: 10px;
+}
+.login-box label{
+    padding-bottom: 8px;
+}
+.login-box input{
+    border-radius: 0.375rem;
+    width: 350px;
+    height: 40px;
+}
+.btn.user-btn{
+    border: 1px solid #000;
+    width: 350px;
+}
+
+/*shopdetail css*/
+
+.rdetailWrap{
+    min-width: 1200px;
+}
+.rdetailTop{
+    padding: 40px 0 20px;
+}
+
+#resDetailContent{
+    display: flex;
+    padding: 40px 0;
+    width: 100%;
+    min-width: 1200px;
+    justify-content: space-between;
+}
+.left-box{
+    border-radius: 20px;
+    width: 49%;
+}
+.right-box{
+    display: flex;
+    flex-direction: column;
+    padding: 20px 40px;
+    width: 49%;
+    justify-content: space-between
+}
+.right-box .r_name{
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+}
+.right-box .r_name div:nth-child(1){
+    display: flex;
+    font-size: 20px;
+    align-items: center;
+}
+.right-box .r_name i{
+    padding-right: 10px;
+}
+.right-box>h2 {
+    padding: 10px 0;
+}
+.right-box{
+    /*background: url("../images/note.png") no-repeat center 100%;*/
+    height: 421px;
+}
+
+.rdBtn.btn-review{
+    width: 100%;
+    padding:10px;
+    background-color: #2a2a2a;
+    color:#fff;
+}
+/*detail blog Review*/
+.blogReview-box{
+}
+.blogReviewList{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    height: 660px;
+    overflow: hidden;
+}
+.reviewMore{
+    height: 100%;
+}
+.blogReviewCont{
+    padding: 10px 7px;
+}
+.blogReviewCont ul{
+    width: 100%;
+    max-width: 310px;
+    height: 310px;
+    background: url("../images/d_review.png") no-repeat center 100%;
+    background-size: cover;
+}
+.blogReviewCont ul li:nth-child(1) a > img{
+    padding-top: 50px;
+
+}
+.blogReviewCont ul li:nth-child(1) a>h5, .blogReviewCont ul li:nth-child(2) a>p{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    line-height: 2rem;
+    /*max-height: 40px;*/
+    -webkit-line-clamp: 2; /* 표시하고자 하는 라인 수 */
+    -webkit-box-orient: vertical;
+}
+.blogReviewCont ul li:nth-child(1) a>h4{
+    line-height: 2.1rem;
+    padding-top: 20px;
+}
+.blogReviewCont ul li:nth-child(2){
+    padding-top:11px;
+}
+.blogReviewCont ul{
+    padding: 20px 40px;
+}
+.blogReviewCont p{
+    font-size: 16px;
+}
+
+/*zzbs review*/
+
+.zzbs_review {
+    /*display: flex;*/
+}
+
+.zReview-inner{
+    display: flex;
+    justify-content: space-around;
+}
+.zReview{
+    width: 310px;
+    position: relative;
+}
+.zReview_img{
+    /*position: relative;*/
+}
+.zReview_txt{
+    border-radius: 10px;
+    text-align: center;
+    display: none;
+    background-color: rgba(0,0,0,0.5);
+    position: absolute;
+    padding: 10px;
+    /* margin: 0px; */
+    width: 94%;
+    height: 92%;
+    top: 10px;
+    left: 10px;
+
+    flex-direction: column;
+    justify-content: center;
+
+}
+.zReview_txt.active{
+    display: flex;
+}
+.zReview_txt div{
+    color: #ffffff;
+}
+.zreview_cont{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    line-height: 1.5rem;
+    /*max-height: 40px;*/
+    -webkit-line-clamp: 3; /* 표시하고자 하는 라인 수 */
+    -webkit-box-orient: vertical;
+}
+
+.zReview .zReview_img> img{
+    padding: 10px;
+    width: 100%;
+    height: 280px;
+    border-radius: 16px;
+}
+/*media Query~*/
+@media screen and (max-width: 1780px) {
+    .swiper-slide img {
+        padding: 10px 20px;
+        min-width: 320px;
+        border-radius: 40px;
+    }
+
+}
+
+@media screen and (max-width: 1500px) {
+    .swiper-slide img{
+        min-width:280px;
+    }
+}
+
+@media screen and (max-width: 1400px) {
+    /*슬라이더사이즈수정*/
+    .swiper-slide img{
+        min-width:250px;
+    }
+/*   디테일페이지 블로그리뷰 컨텐츠 사이즈 수정 */
+    .blogReviewList{
+        height: 560px;
+    }
+
+    .blogReviewCont{
+        padding: 10px 9px;
+    }
+    .blogReviewCont ul{
+        width: 100%;
+        max-width: 260px;
+        height: 260px;
+        background: url("../images/mini_note.png") no-repeat;
+        background-size: cover;
+    }
+
+
+}
+
+@media screen and (max-width: 1280px) {
+    .swiper-slide img{
+        min-width:240px;
+    }
+}
+

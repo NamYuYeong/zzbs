@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="inc/header2.html :: headerFrag" />
+<body>
+<div th:replace="inc/header.html :: header ('CategoryInsert')"/>
+
+<div class="categoryIn-wrap">
+    <div class="inc-title">
+        <img src="/images/Cat.png" alt="cat">
+        <h3>음식추가</h3>
+    </div>
+    <form th:method="post" th:action="@{/admin/CategoryInsert}" th:object="${CategoryInsert}" align="center">
+        <div class="categoryIn-box">
+            <label th:for="nation">분류명</label><br/>
+            <input type="text" th:field="*{nation}" placeholder="분류명추가"
+                    th:errorclass="error-input"/>
+            <div th:class="error-div" th:errors="*{nation}"/>
+        </div>
+        <div class="categoryIn-box">
+            <label th:for="food">음식명</label><br/>
+            <input type="text" th:field="*{food}" placeholder="음식명추가"
+                   th:errorclass="error-input"/>
+            <div th:class="error-div" th:errors="*{food}"/>
+        </div>
+        <div id="login-fail" class="error-div" align="center" hidden>아이디 또는 비밀번호가 일치하지 않습니다.</div>
+        
+        <br/><br/>
+        <div style="text-align: center;">
+            <button style="width: 350px; border: 1px solid #2a2a2a;" class="btn category-btn" type="submit">카테고리 추가</button>
+        </div>
+    </form>
+</div>
+<script th:inline="javascript">
+    window.onload = function () {
+        if(location.href.includes("fail")) {
+            document.getElementById("login-fail").removeAttribute("hidden");
+        }
+    }
+</script>
+</body>
+</html>

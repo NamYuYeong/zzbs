@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!-- 헤더 -->
+<head th:replace="inc/header.html :: headerFrag" />
+<body>
+<div th:replace="inc/header.html :: header ('map')"/>
+<!-- 컨텐츠 -->
+<div class="container rdetailWrap">
+    <div class="rdetailTop">
+        <h4 style="text-align: center;">
+            <img src="/images/star.png" alt="★">음식점 정보<img src="/images/star.png" alt="★">
+        </h4>
+    </div>
+    <div id="resDetailContent">
+        <!--지도-->
+        <div class="left-box">
+            <div class="map_wrap">
+                <div id="map" style="width:600px;height:400px;position:relative;border-radius: 20px"></div>
+            </div>
+        </div>
+        <div class="right-box">
+
+            <div class="r_name">
+                <div><i class="fa-solid fa-store"></i><h2 th:text="${param.place_name}"></h2></div>
+                <div id="averageRating"></div>
+            </div>
+            <div class="r_addr">
+                <i class="fa-solid fa-location-dot"></i> <span>위치</span>
+                <br>
+                <br>
+                <div class="r_addrTxt">
+                    <p th:text="${param.road_address_name}"></p>
+                    <p th:text="${param.address_name}"></p>
+                </div>
+            </div>
+
+            <div class="r_tel">
+                <i class="fa-solid fa-phone"></i> <span>전화번호</span>
+                <br>
+                <br>
+                <p th:text="${param.phone}"></p>
+            </div>
+
+            <div id="WR">
+                <!--            <a class="btn-save" href="/post/registerPost">글쓰기</a>-->
+                <button class="rdBtn btn-review btn-secondary" onclick="">리뷰작성</button>
+            </div>
+        </div>
+
+    </div>
+
+    <!--식당목록-->
+    <div id="menu_wrap" class="bg_white">
+        <hr>
+        <ul id="placesList"></ul>
+        <div id="pagination"></div>
+    </div>
+
+    <!-- 블로그 크롤링-->
+    <div class="blogReview-box">
+        <h4><img src="/images/pen.png" width="20px" alt="※"> 블로그 리뷰</h4>
+        <br>
+        <div id="blogReviewList" class= "blogReviewList">
+            <!--<div>
+                <span>제목</span>
+                <span>내용</span>
+            </div>-->
+            <div  class="blogReviewCont" th:each="blog : ${blog} ">
+                <ul>
+                <li><a th:href="${blog.url}"><img src="/images/pen.png" width="16px" alt="※"><h5 th:text="${blog.btitle}"></h5></a></li>
+                <li><a th:href="${blog.url}"><p th:text="${blog.bdescription}"></p></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="btn-box">
+            <button class="btn_more">더보기</button>
+        </div>
+
+    </div>
+    <hr>
+
+    <!--쩝쩝박사리뷰-->
+    <div class="zzbs_review">
+        <h4>쩝쩝박사님들의 리뷰</h4>
+        <br>
+        <div class="zReview-inner">
+            <div class="zReview">
+                <a id="review_image_link">
+                <div class="zReview_img">
+                        <img id="review_image" />
+                </div>
+                    <div class="zReview_txt">
+                        <div id="review_rating" class="zreview_rat"></div>
+                        <div id="review_title" class="zreview_tit"></div>
+                        <div id="review_body" class="zreview_cont"></div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="zReview">
+                <a id="review_image_link1">
+                    <div class="zReview_img">
+                       <img id="review_image1"/>
+                    </div>
+
+                    <div class="zReview_txt block">
+                        <div id="review_rating1" class="zreview_rat"></div>
+                        <div id="review_title1" class="zreview_tit"></div>
+                        <div id="review_body1" class="zreview_cont"></div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="zReview">
+                <a id="review_image_link2">
+                    <div class="zReview_img">
+                        <img id="review_image2"/>
+                    </div>
+                    <div class="zReview_txt">
+                        <div id="review_rating2" class="zreview_rat"></div>
+                        <div id="review_title2" class="zreview_tit"></div>
+                        <div id="review_body2" class="zreview_cont"></div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="zReview">
+                <a id="review_image_link3">
+                    <div class="zReview_img">
+                        <img id="review_image3"/>
+                    </div>
+                    <div class="zReview_txt">
+                        <div id="review_rating3" class="zreview_rat"></div>
+                        <div id="review_title3" class="zreview_tit"></div>
+                        <div id="review_body3" class="zreview_cont" ></div>
+                    </div>
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script>
+
+ const zReviews = document.querySelectorAll(".zReview");
+
+ // 각 "zReview" 요소에 대한 반복문
+ zReviews.forEach(zReview => {
+     // 해당 "zReview" 요소 내부에서 "zReview_txt" 요소를 찾음
+     let zReviewTxt = zReview.querySelector(".zReview_txt");
+
+     // 마우스 오버 이벤트 리스너 추가
+     zReview.addEventListener("mouseover", () => {
+         zReviewTxt.classList.add('active');
+     });
+
+     // 마우스 아웃 이벤트 리스너 추가
+     zReview.addEventListener('mouseout', () => {
+         zReviewTxt.classList.remove('active');
+     });
+ });
+    /*   const btnMore = document.querySelector(".btn_more");
+
+       btnMore.addEventListener("click",() => {
+           document.getElementById("blogReviewList").classList.add('reviewMore');
+
+       })
+   */
+ const btnMore = document.querySelector(".btn_more");
+
+ btnMore.addEventListener("click", () => {
+     const blogReviewList = document.getElementById("blogReviewList");
+
+     if (blogReviewList.classList.contains('reviewMore')) {
+         // 'reviewMore' 클래스가 존재하면 제거
+         blogReviewList.classList.remove('reviewMore');
+     } else {
+         // 'reviewMore' 클래스가 없으면 추가
+         blogReviewList.classList.add('reviewMore');
+     }
+ });
+</script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=53e4981e6bc99b836ba4b8392ae6166c&libraries=services"></script>
+<script src="/js/map.js"></script>
+<script src="/js/resDetail.js"></script>
+<script src="/js/rating.js"></script>
+<script th:inline="javascript">
+    /* -----------리뷰------------ */
+    document.addEventListener("click", function (e) {
+        var target = e.target;
+        if (target.tagName === "BUTTON" && target.classList.contains("btn-review")) {
+            window.location.href = '/boards/free/write?place_name=' + [[${param.place_name}]];
+        }
+    })
+</script>
+<!-- 푸터 -->
+<th:block th:replace="/inc/footer :: footerFrag"></th:block>
+</body>
+</html>

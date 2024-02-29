@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:fragment="headerFrag">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no,
+  maximum-scale=1.0, minimum-scale=1.0">
+    <title>쩝쩝박사는 다알아</title>
+    <!-- Bootstrap 5.2.3 Version -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <!--swiper slider-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+
+
+    <!-- My CSS -->
+<!--    <link rel="stylesheet" href="/css/custom.css">-->
+    <link type="text/css" href="/css/common.css" rel="stylesheet">
+    <link type="text/css" href="/css/main.css" rel="stylesheet">
+    <link type="text/css" href="/css/home.css" rel="stylesheet">
+    <link type="text/css" href="/css/map2.css" rel="stylesheet">
+    <link type="text/css" href="/css/ui.css" rel="stylesheet">
+
+    <!-- JQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <!--bootstrap-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+
+<body>
+<th:block th:fragment="header (pageName)">
+    <div class="top">
+        <div class="logo">
+            <h5><a href="/"><img src="/images/logo.png" alt="쩝쩝박사는 다알아"></a></h5>
+        </div>
+<!--        <div class="search-box">-->
+<!--            <input type="text" placeholder="지역, 음식 또는 식당명 입력" >-->
+<!--            <button type="button" class="img-button"></button>-->
+<!--        </div>-->
+<!--        <div class="option search-box">-->
+<!--            <div>-->
+<!--                <form onsubmit="searchPlaces(); return false;">-->
+<!--                    <input type="text"  id="keyword" size="15" th:value="${keyword}" placeholder="지역, 음식 또는 식당명 입력">-->
+<!--                    <button type="submit" class="img-button"></button>-->
+<!--                </form>-->
+<!--            </div>-->
+<!--        </div>-->
+        <div class="menu-top">
+            <!-- 로그인 안 했을때 -->
+            <ul sec:authorize="isAnonymous()">
+                <li class="nav-item">
+                    <button class="btn nav-btn" onclick="location.href = '/users/login'">로그인</button>
+                </li>
+                <li class="nav-item">
+                    <button class="btn nav-btn" onclick="location.href = '/users/join'">회원가입</button>
+                </li>
+            </ul>
+
+            <!-- 로그인 했을때 -->
+            <ul sec:authorize="isAuthenticated()">
+                <li class="nav-item" sec:authorize="hasAuthority('ADMIN')">
+                    <button class="btn nav-btn" onclick="location.href = '/users/admin'" style="width: fit-content">관리자 페이지</button>
+                </li>
+                <li class="nav-item">
+                    <button class="btn nav-btn" onclick="location.href = '/users/myPage/board'">마이페이지</button>
+                </li>
+                <li class="nav-item">
+                    <button class="btn nav-btn" onclick="location.href = '/users/logout'">로그아웃</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+<!--    <nav class="navbar navbar-expand-lg" style="background-color: limegreen; margin-bottom: 60px;">-->
+<!--        <div class="container-fluid">-->
+<!--            <a class="navbar-brand" href="/">Basic Board</a>-->
+<!--            <div class="collapse navbar-collapse" id="navbarNavDropdown">-->
+<!--                &lt;!&ndash;<ul class="navbar-nav">&ndash;&gt;-->
+<!--                <ul class="navbar-nav">-->
+<!--                    <li class="nav-item">-->
+<!--                        <a th:if="${pageName == 'home'}" class="nav-link active" aria-current="page" href="/">Home</a>-->
+<!--                        <a th:unless="${pageName == 'home'}" class="nav-link" aria-current="page" href="/">Home</a>-->
+<!--                    </li>-->
+<!--                    <li class="nav-item">-->
+<!--                        <a th:if="${pageName == 'noob'}" class="nav-link active" aria-current="page" href="/boards/noob">가입인사</a>-->
+<!--                        <a th:unless="${pageName == 'noob'}" class="nav-link" aria-current="page" href="/boards/noob">가입인사</a>-->
+<!--                    </li>-->
+<!--                    <li class="nav-item">-->
+<!--                        <a th:if="${pageName == 'free'}" class="nav-link active" aria-current="page" href="/boards/free">자유게시판</a>-->
+<!--                        <a th:unless="${pageName == 'free'}" class="nav-link" aria-current="page" href="/boards/free">자유게시판</a>-->
+<!--                    </li>-->
+<!--                </ul>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </nav>-->
+    <div class="wrap bgimg">
+        <div class="wrap-inner">
+            <nav class="nav">
+                <div class="">
+                    <ul class="">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/">
+                                <img src="/images/menu1.png" alt="메뉴정하기">
+                                <span>메뉴정하기</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/users/map?keyword=맛집">
+                                <img src="/images/menu2.png" alt="맛집검색">
+                                <span>맛집검색</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a th:if="${pageName == 'free'}" class="nav-link" href="/boards/free">
+                                <img src="/images/menu3.png" alt="맛집리뷰">
+                                <span>맛집리뷰</span>
+                            </a>
+                            <a th:unless="${pageName == 'free'}" class="nav-link" aria-current="page" href="/boards/free">
+                                <img src="/images/menu3.png" alt="맛집리뷰">
+                                <span>맛집리뷰</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+
+        <!--<div class="content_slide">
+            &lt;!&ndash;        <h1 class="slide_title">지금 내주변에는 어떤음식들이 있을까?</h1>&ndash;&gt;
+
+            <div class="swiper mySwiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide"><img src="/images/01.png" alt=""></div>
+                    <div class="swiper-slide"><img src="/images/02.png" alt=""></div>
+                    <div class="swiper-slide"><img src="/images/03.png" alt=""></div>
+                    <div class="swiper-slide"><img src="/images/04.png" alt=""></div>
+                    <div class="swiper-slide"><img src="/images/05.png" alt=""></div>
+                    <div class="swiper-slide"><img src="/images/01.png" alt=""></div>
+                    <div class="swiper-slide"><img src="/images/02.png" alt=""></div>
+                    <div class="swiper-slide"><img src="/images/03.png" alt=""></div>
+                    <div class="swiper-slide"><img src="/images/04.png" alt=""></div>
+                    <div class="swiper-slide"><img src="/images/05.png" alt=""></div>
+                </div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+-->
+
+
+        <!-- Swiper JS -->
+        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+        <script>
+            var swiper = new Swiper(".mySwiper", {
+                slidesPerView: 5,
+                spaceBetween: 30,
+
+                loop: true,
+                loopFillGroupWithBlank: true,
+                pagination: {
+                    el: ".swiper-pagination",
+                    clickable: true,
+                },
+                autoplay: {
+                    delay: 2500,
+                    disableOnInteraction: false,
+                },
+                navigation: {
+                    nextEl: ".swiper-button-next",
+                    prevEl: ".swiper-button-prev",
+                },
+            });
+        </script>
+
+</th:block>
+
+</body>

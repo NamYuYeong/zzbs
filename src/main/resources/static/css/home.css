@@ -1,0 +1,96 @@
+@charset "utf-8";
+.homeWrap{
+    position: relative;
+}
+.home-title{
+    text-align: center;
+    padding: 40px 0 0;
+}
+/*룰렛컨텐츠*/
+.rouletter-wrap {
+    /*position: relative;*/
+    height: 704px;
+    display: flex;
+    top: 100px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.rouletter{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.rouletter-bg {
+    /*룰렛이미지*/
+    /*position: absolute;*/
+    /*top: 50%;*/
+    /*left: 50%;*/
+    /*transform: translate(-50%, -50%);*/
+    width: 510px;
+    height: 510px;
+    border-radius: 350px;
+    overflow: hidden;
+}
+.rouletter-wacu {
+    width: 100%;
+    height: 100%;
+    background:url("../images/roulette.png")
+    no-repeat;
+    background-size: 100%;
+    transform-origin: center;
+    transition-timing-function: ease-in-out;
+    transition: 2s;
+}
+.rouletter-arrow {
+    position: absolute;
+    /* top: -165px; */
+    top: 213px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1px;
+    height: 1px;
+    border-right: 28px solid transparent;
+    border-left: 28px solid transparent;
+    border-top: 58px solid #CFA855;
+    border-bottom: 0px solid transparent;
+}
+
+.hidden-input {
+    display: none;
+}
+.rwrap{
+    position: relative;
+}
+
+#result{
+    text-align: center;
+}
+
+.result_st{
+    position: absolute;
+    top: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 700px;
+    background: url(../images/result_Bg.png), #ffffff;
+    background-repeat: no-repeat;
+    /*background-size: cover;*/
+    background-position: center;
+}
+.btn-box{
+    display: flex;
+    justify-content: center;
+    padding: 20px 0;
+}
+
+.btn-box button{
+    background-color: #ffffff;
+    width: 200px;
+    height: 40px;
+}
+.btn-box button+button{
+    margin-left: 10px;
+}
